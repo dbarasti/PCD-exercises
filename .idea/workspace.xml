@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a60c3ad5-7daa-431a-a464-75d79bf9f2ae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/PCD-exercises.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.8/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/merkleClient/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/merkleClient/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/merkleClient/MerkleValidityRequest$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/merkleClient/MerkleValidityRequest$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/merkleClient/MerkleValidityRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/merkleClient/MerkleValidityRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/classes/multiset/HashMultiSetTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/merkleClient/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/merkleClient/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/multiset/HashMultiSetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/multiset/HashMultiSetTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -35,17 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="66" column="22" lean-forward="true" selection-start-line="66" selection-start-column="22" selection-end-line="66" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/multiset/HashMultiSet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-406">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+            <state relative-caret-position="336">
+              <caret line="92" selection-start-line="92" selection-end-line="92" />
             </state>
           </provider>
         </entry>
@@ -53,9 +33,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/merkleServer/MerkleServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="70" column="32" selection-start-line="70" selection-start-column="32" selection-end-line="70" selection-end-column="32" />
+            <state relative-caret-position="5">
+              <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="e#412#439#0" expanded="true" />
               </folding>
             </state>
@@ -97,10 +78,10 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/merkleClient/HashUtil.java" />
         <option value="$PROJECT_DIR$/src/test/java/MerkleValidityRequest/MerkleValidityRequestTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/merkleServer/MerkleServer.java" />
         <option value="$PROJECT_DIR$/src/test/java/multiset/HashMultiSetTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/merkleClient/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/merkleServer/MerkleServer.java" />
       </list>
     </option>
   </component>
@@ -156,7 +137,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542904721330" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542906126550" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -236,6 +217,14 @@
       <option name="presentableId" value="Default" />
       <updated>1542559241692</updated>
     </task>
+    <task id="LOCAL-00001" summary="server receiving hashed strings, seems ok. Now has to send back the response">
+      <created>1542904765490</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1542904765490</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -259,8 +248,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969433" />
-      <window_info active="true" anchor="bottom" x="1154" y="196" width="798" height="581" id="Run" order="2" side_tool="true" type="FLOATING" visible="true" weight="0.29225737" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.3991276" />
+      <window_info anchor="bottom" x="1164" y="196" width="798" height="581" id="Run" order="2" side_tool="true" type="FLOATING" weight="0.29225737" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991276" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -281,38 +270,42 @@
       <window_info anchor="right" id="Maven" order="9" />
     </layout>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="server receiving hashed strings, seems ok. Now has to send back the response" />
+    <option name="LAST_COMMIT_MESSAGE" value="server receiving hashed strings, seems ok. Now has to send back the response" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java</url>
-          <line>74</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java</url>
-          <line>76</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java</url>
-          <line>80</line>
-          <properties />
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java</url>
-          <line>100</line>
-          <properties />
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/merkleClient/Main.java</url>
           <line>23</line>
           <properties />
           <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java</url>
+          <line>81</line>
+          <properties />
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java</url>
+          <line>77</line>
+          <properties />
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java</url>
+          <line>86</line>
+          <properties />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java</url>
+          <line>92</line>
+          <properties />
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -361,13 +354,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/merkleServer/MerkleServer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/multiset/HashMultiSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="70" column="32" selection-start-line="70" selection-start-column="32" selection-end-line="70" selection-end-column="32" />
-          <folding>
-            <element signature="e#412#439#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="520">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
         </state>
       </provider>
     </entry>
@@ -381,17 +371,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/multiset/HashMultiSet.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/merkleServer/MerkleServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-406">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="5">
+          <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#412#439#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/merkleClient/MerkleValidityRequest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="66" column="22" lean-forward="true" selection-start-line="66" selection-start-column="22" selection-end-line="66" selection-end-column="22" />
+        <state relative-caret-position="336">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
         </state>
       </provider>
     </entry>

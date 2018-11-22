@@ -65,11 +65,12 @@ public class MerkleValidityRequest {
 
 		// aggiungo alla fine della lista richieste una stringa che fa chiudere il server
 		mRequests.add("close");
-		mRequests.forEach(checkRequest->{
-			List<String> transactionNodes = null;
-			//list that will be filled with the response from the server
 
-			//for each checkRequest do:
+		//for each checkRequest do:
+		mRequests.forEach(checkRequest->{
+			//list that will be filled with the response from the server
+			List<String> transactionNodes = null;
+
 			//send current request to receive a validity proof
 			byte[] message = new String(checkRequest).getBytes();
 			ByteBuffer buffer = ByteBuffer.wrap(message);
@@ -79,6 +80,17 @@ public class MerkleValidityRequest {
 				e.printStackTrace();
 			}
 			buffer.clear();
+
+			//get response
+			buffer = ByteBuffer.allocate(256);
+			try {
+				client.read(buffer);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String result = new String(buffer.array()).trim();
+
+			System.out.println("--- Message received: " + result);
 
 
 			//receive validity proofs as List
