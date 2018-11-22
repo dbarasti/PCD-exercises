@@ -13,11 +13,13 @@ public class Main {
 		String merkleTx_1 = HashUtil.md5Java("0000000001");
 		String merkleTx_2 = HashUtil.md5Java("0000000020");
 		
-		Map<Boolean, List<String>> report = new MerkleValidityRequest.Builder("127.0.0.1", 2323, merkleRoot)
+		Map<Boolean, List<String>> report = new MerkleValidityRequest.Builder("localhost", 1111, merkleRoot)
 								 									.addMerkleValidityCheck(merkleTx_1)
 								 									.addMerkleValidityCheck(merkleTx_2)
 								 									.build()
 								 									.checkWhichTransactionValid();		
+
+
 		//print the valid transactions.
 		report.entrySet().stream()
 						 .filter(Entry::getKey)
