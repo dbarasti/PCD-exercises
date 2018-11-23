@@ -81,16 +81,18 @@ public class MerkleValidityRequest {
 			}
 			buffer.clear();
 
-			//get response
-			buffer = ByteBuffer.allocate(256);
-			try {
-				client.read(buffer);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			String result = new String(buffer.array()).trim();
+			//get response only if I just sent something different from "close"
+			if(checkRequest != "close") {
+				buffer = ByteBuffer.allocate(256);
+				try {
+					client.read(buffer);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				String result = new String(buffer.array()).trim();
 
-			System.out.println("--- Message received: " + result);
+				System.out.println("--- Message received: " + result);
+			}
 
 
 			//receive validity proofs as List

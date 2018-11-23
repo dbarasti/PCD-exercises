@@ -65,6 +65,7 @@ public class MerkleServer {
 					ByteBuffer buffer = ByteBuffer.allocate(256);
 					clientSocket.read(buffer);
 					String result = new String(buffer.array()).trim();
+					buffer.clear();
 
 					log("--- Message received: " + result, "err");
 
@@ -72,10 +73,8 @@ public class MerkleServer {
 						clientSocket.close();
 						log("\nIt's time to close this connection as we got a close packet", "out");
 					}
+					else if (clientSocket.isConnected()){
 
-					buffer.clear();
-
-					if(clientSocket.isConnected()) {
 						byte[] message = new String("risposta al client").getBytes();
 						buffer = ByteBuffer.wrap(message);
 						try {
@@ -85,7 +84,8 @@ public class MerkleServer {
 							e.printStackTrace();
 						}
 					}
-				} else if (myKey.isWritable()) {
+				}
+				/*else if (myKey.isWritable()) {
 					byte[] message = new String("risposta al client").getBytes();
 					ByteBuffer buffer = ByteBuffer.wrap(message);
 					try {
@@ -96,7 +96,7 @@ public class MerkleServer {
 					}
 					buffer.clear();
 				}
-
+				*/
 
 			}
 			//important: should delete, otherwise re-iterated the next turn again.
