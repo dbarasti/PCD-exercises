@@ -63,45 +63,69 @@ public class MerkleValidityRequest {
 		SocketChannel client = SocketChannel.open(remoteAddr);
 		System.out.println("Connecting to Server on port 1111...");
 
-		// aggiungo alla fine della lista richieste una stringa che fa chiudere il server
+		// aggiungo alla fine della lista richieste una stringa che fa chiudere la connessione il server
 		mRequests.add("close");
 
 		//for each checkRequest do:
 		mRequests.forEach(checkRequest->{
 			//list that will be filled with the response from the server
-			List<String> transactionNodes = null;
+			List<String> transactionNodes = new ArrayList<>();
 
 			//send current request to receive a validity proof
 			byte[] message = new String(checkRequest).getBytes();
 			ByteBuffer buffer = ByteBuffer.wrap(message);
 			try {
+				//actually sending the request
 				client.write(buffer);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			//cleaning the buffer
 			buffer.clear();
 
 			//get response only if I just sent something different from "close"
-			if(checkRequest != "close") {
-				buffer = ByteBuffer.allocate(256);
+			if(!checkRequest.equals("close")) {
+				ByteBuffer responseBuffer = ByteBuffer.allocate(256);
+				String result;
+
 				try {
-					client.read(buffer);
+					//reading from server the response node
+					client.read(responseBuffer);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				String result = new String(buffer.array()).trim();
+				result = new String(responseBuffer.array()).trim();
 
-				System.out.println("--- Message received: " + result);
-			}
+				System.out.println(result);
 
+				while (result != "endOfAuth") {
+					transactionNodes.add(result);
+					result = "";
+					responseBuffer.clear();
+					//System.out.println("--- Message received: " + new String(responseBuffer.array()).trim());
 
-			//receive validity proofs as List
-			//transactionNodes=server.res;
-			//uses isTransactionValid()
+					try {
+						//reading from server the response node
+						client.read(responseBuffer);
+					} catch (IOException e) {
+
+					}
+				}
+				//uses isTransactionValid()
+
 			/*
 			boolean validity = isTransactionValid(checkRequest, transactionNodes);
-			transactionsValidity.get(validity).add(checkRequest);
+
+			transactionsValidity			e.printStackTrace();
+					}
+					result = new String(responseBuffer.array()).trim();
+				}
+
+				//System.out.println(transactionNodes);
+			}.get(validity).add(checkRequest);
 			*/
+
+			}
 
 		});
 
@@ -128,10 +152,10 @@ public class MerkleValidityRequest {
 		//mRoot is the Hash value of the merkle tree Root
 
 		/*
-		Leaf containing data(merkleTx) must be hashed to be computed with the list returned from the server (merkleNodes),
-		then hashedConcat is initialized to this value.
-		*/
-		String hashedConcat = md5Java(merkleTx);
+		* merkleTx is a string already hashed in the main(), so I only have to concat & hash with the list of hashed nodes
+		* that I got from the Authority (the server)
+		* */
+		String hashedConcat = merkleTx;
 
 		//to obtain a result comparable to mRoot i have to concatenate&hash each node of the list with his previous
 		for (String hash :

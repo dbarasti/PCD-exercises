@@ -7,9 +7,12 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
- 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class MerkleServer {
  
 	public static final String END_OF_SESSION = "close";
@@ -63,6 +66,7 @@ public class MerkleServer {
 				} else if (myKey.isReadable()) {
 					SocketChannel clientSocket = (SocketChannel) myKey.channel();
 					ByteBuffer buffer = ByteBuffer.allocate(256);
+					//gets the hashed string from the client, which is the request,
 					clientSocket.read(buffer);
 					String result = new String(buffer.array()).trim();
 					buffer.clear();
@@ -74,29 +78,34 @@ public class MerkleServer {
 						log("\nIt's time to close this connection as we got a close packet", "out");
 					}
 					else if (clientSocket.isConnected()){
+						//send list of nodes
 
-						byte[] message = new String("risposta al client").getBytes();
-						buffer = ByteBuffer.wrap(message);
-						try {
-							clientSocket = (SocketChannel) myKey.channel();
-							clientSocket.write(buffer);
-						} catch (IOException e) {
-							e.printStackTrace();
+						//generate authority nodes (randomly)
+						List<String> authNodes = new ArrayList<>();
+						authNodes.add("test");
+						authNodes.add("test2");
+						authNodes.add("test3");
+
+						//add a string to the end to close signal the end of the authority nodes
+						authNodes.add("endOfAuthNodes");
+
+						buffer.clear();
+						//send these nodes
+						for (String node :
+								authNodes) {
+							byte[] message = node.getBytes();
+							buffer = ByteBuffer.wrap(message);
+							try {
+								clientSocket = (SocketChannel) myKey.channel();
+								clientSocket.write(buffer);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							System.out.println(new String(buffer.array()).trim());
+							buffer.clear();
 						}
 					}
 				}
-				/*else if (myKey.isWritable()) {
-					byte[] message = new String("risposta al client").getBytes();
-					ByteBuffer buffer = ByteBuffer.wrap(message);
-					try {
-						SocketChannel clientSocket = (SocketChannel) myKey.channel();
-						clientSocket.write(buffer);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					buffer.clear();
-				}
-				*/
 
 			}
 			//important: should delete, otherwise re-iterated the next turn again.
@@ -111,4 +120,15 @@ public class MerkleServer {
 			default: {}
 		}
 	}
+
+	private static List<String> generateAuthNodes(){
+		List<String> authNodes = new ArrayList<>();
+		RandomHash gen;
+		for (int i = 0; i<5; i++){
+			//gen = new RandomHash(32, ThreadLocalRandom.current());
+			authNodes.add("test");
+		}
+		return authNodes;
+	}
+
 }
