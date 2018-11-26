@@ -41,14 +41,19 @@ public final class HashMultiSet<T, V extends Number> {
 	 *
 	 * @return V: frequency count of the element in the multiset
 	 * */
-	public V addElement(T t) {
+	public V 	addElement(T t) {
 		//default return = 1
 		Integer i = 1;
 
+		//se è la prima occorrenza della key allora la inserisco con valore di count = 1
 		V currentValue = multiSetMap.putIfAbsent(t, (V) i);
 
+		//controllo se il valore ritornato da putIfAbsent è null, in questo caso infatti ho inserito la key per la prima volta
 		if(currentValue == null)
 			return (V) i;
+		/* Se invece la key era già presente, currentValue contiene il precedente count di frequenza.
+		* In questo caso quindi aggiorno il valore di frequenza della key.
+		*/
 		Integer updatedValue = (Integer) currentValue + i;
 		multiSetMap.put(t,(V)updatedValue);
 		return (V)updatedValue;
@@ -88,24 +93,23 @@ public final class HashMultiSet<T, V extends Number> {
 	 * @param source Path: source of the multiset
 	 * */
 	public void buildFromFile(Path source){
+		if (source == null || Files.notExists(source))
+			throw new IllegalArgumentException("File not found, maybe wrong path?");
 		try (Stream<String> stream = Files.lines(source)) {
-
 			stream.forEach((line)->{
 				String[] elements = line.split(",");
 				for (String el:
 						elements
 				) {
 					addElement((T)el);
-					System.out.print("	Key: " + el + " Type: " + el.getClass().toString() + ", Value: " + getElementFrequency((T)el)+ " Type: " + getElementFrequency((T)el).getClass().toString() );
+					System.out.println("	Key: " + (T)el + " Type: " + ((T)el).getClass().toString() + ", Value: " + getElementFrequency((T)el)+ " Type: " + getElementFrequency((T)el).getClass().toString() );
 				}
 			});
 
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("Reading from file filed, do I have the correct access rights?");
 		}
-		//Integer num = 1;
-		//System.out.println(getElementFrequency((T) num));
-
 	}
 
 	/**
@@ -116,9 +120,8 @@ public final class HashMultiSet<T, V extends Number> {
 		source.stream()
 				.forEach(el->{
 					addElement((T)el);
-					System.out.println("	Key: " + el + " Type: " + el.getClass().toString() + ", Value: " + getElementFrequency((T)el)+ " Type: " + getElementFrequency((T)el).getClass().toString() );
+					//System.out.println("	Key: " + el + " Type: " + el.getClass().toString() + ", Value: " + getElementFrequency((T)el)+ " Type: " + getElementFrequency((T)el).getClass().toString() );
 				});
-
 	}
 
 	/**

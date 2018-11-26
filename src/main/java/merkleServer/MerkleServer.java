@@ -11,14 +11,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class MerkleServer {
  
 	public static final String END_OF_SESSION = "close";
 	
 	@SuppressWarnings("unused")
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
  
 		// Selector: multiplexor of SelectableChannel objects
 		Selector selector = Selector.open(); // selector is open here
@@ -69,25 +68,21 @@ public class MerkleServer {
 					//gets the hashed string from the client, which is the request,
 					clientSocket.read(buffer);
 					String result = new String(buffer.array()).trim();
-					buffer.clear();
 
 					log("--- Message received: " + result, "err");
 
-					if (result.equals("close")) {
+					if (result.equals(END_OF_SESSION)) {
 						clientSocket.close();
 						log("\nIt's time to close this connection as we got a close packet", "out");
 					}
 					else if (clientSocket.isConnected()){
 						//send list of nodes
 
-						//generate authority nodes (randomly)
+						//generate three sample auth nodes
 						List<String> authNodes = new ArrayList<>();
-						authNodes.add("test");
-						authNodes.add("test2");
-						authNodes.add("test3");
-
-						//add a string to the end to close signal the end of the authority nodes
-						authNodes.add("endOfAuthNodes");
+						authNodes.add("7f4r9de99d4a84eh4cb162b3eac40rff\n");
+						authNodes.add("5gsldde9f4564h5gjsbb162bcb4eqwcf\n");
+						authNodes.add("traldfgst4564h5gjsbbrtebcb4d6g7u");
 
 						buffer.clear();
 						//send these nodes
@@ -96,20 +91,23 @@ public class MerkleServer {
 							byte[] message = node.getBytes();
 							buffer = ByteBuffer.wrap(message);
 							try {
-								clientSocket = (SocketChannel) myKey.channel();
 								clientSocket.write(buffer);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
-							System.out.println(new String(buffer.array()).trim());
+							System.out.println("sending: " + node);
 							buffer.clear();
+
+							// wait before sending next message
+							Thread.sleep(100);
+
 						}
 					}
 				}
 
+				//important: should delete, otherwise re-iterated the next turn again.
+				keys.remove();
 			}
-			//important: should delete, otherwise re-iterated the next turn again.
-			keys.remove();
 		}
 	}
  
@@ -120,15 +118,4 @@ public class MerkleServer {
 			default: {}
 		}
 	}
-
-	private static List<String> generateAuthNodes(){
-		List<String> authNodes = new ArrayList<>();
-		RandomHash gen;
-		for (int i = 0; i<5; i++){
-			//gen = new RandomHash(32, ThreadLocalRandom.current());
-			authNodes.add("test");
-		}
-		return authNodes;
-	}
-
 }

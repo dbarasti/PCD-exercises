@@ -6,10 +6,7 @@ import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.rmi.server.LogStream.log;
 import static merkleClient.HashUtil.md5Java;
@@ -57,84 +54,61 @@ public class MerkleValidityRequest {
 	public Map<Boolean, List<String>> checkWhichTransactionValid() throws IOException {
 		//map to be returned
 		Map<Boolean, List<String>> transactionsValidity = new HashMap<>();
+		transactionsValidity.put(false, new ArrayList<>());
+		transactionsValidity.put(true, new ArrayList<>());
 
 		//Open connection
 		InetSocketAddress remoteAddr = new InetSocketAddress(authIPAddr, authPort);
 		SocketChannel client = SocketChannel.open(remoteAddr);
 		System.out.println("Connecting to Server on port 1111...");
 
-		// aggiungo alla fine della lista richieste una stringa che fa chiudere la connessione il server
-		mRequests.add("close");
 
-		//for each checkRequest do:
-		mRequests.forEach(checkRequest->{
+		//for each mRequest do:
+		for (String req :
+				mRequests) {
 			//list that will be filled with the response from the server
-			List<String> transactionNodes = new ArrayList<>();
-
+			List<String> authNodes = new ArrayList<>();
 			//send current request to receive a validity proof
-			byte[] message = new String(checkRequest).getBytes();
+			byte[] message = new String(req).getBytes();
 			ByteBuffer buffer = ByteBuffer.wrap(message);
-			try {
-				//actually sending the request
-				client.write(buffer);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			//cleaning the buffer
+			client.write(buffer);
+
+			System.out.println("sending: " + req);
 			buffer.clear();
 
-			//get response only if I just sent something different from "close"
-			if(!checkRequest.equals("close")) {
-				ByteBuffer responseBuffer = ByteBuffer.allocate(256);
-				String result;
-
-				try {
-					//reading from server the response node
-					client.read(responseBuffer);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				result = new String(responseBuffer.array()).trim();
-
-				System.out.println(result);
-
-				while (result != "endOfAuth") {
-					transactionNodes.add(result);
-					result = "";
-					responseBuffer.clear();
-					//System.out.println("--- Message received: " + new String(responseBuffer.array()).trim());
-
-					try {
-						//reading from server the response node
-						client.read(responseBuffer);
-					} catch (IOException e) {
-
-					}
-				}
-				//uses isTransactionValid()
-
-			/*
-			boolean validity = isTransactionValid(checkRequest, transactionNodes);
-
-			transactionsValidity			e.printStackTrace();
-					}
-					result = new String(responseBuffer.array()).trim();
-				}
-
-				//System.out.println(transactionNodes);
-			}.get(validity).add(checkRequest);
-			*/
-
-			}
-
-		});
-
+			// wait for 3 seconds before sending next message
 			try {
-				client.close();
-			} catch (IOException e) {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 
+			//reading from server the response node
+
+			ByteBuffer serverBuffer = ByteBuffer.allocate(256);
+			client.read(serverBuffer);
+			String result = new String(serverBuffer.array()).trim();
+
+			String[] splittedRes = result.split("\n");
+			for (String node :
+					splittedRes) {
+				System.out.println("Message received from server: " + node);
+				authNodes.add(node);
+			}
+
+			//uses isTransactionValid()
+
+			boolean validity = isTransactionValid(req, authNodes);
+			transactionsValidity.get(validity).add(req);
+		}
+
+		//makes server closes his connection with the client with a closing packet
+		byte[] message = new String("close").getBytes();
+		ByteBuffer buffer = ByteBuffer.wrap(message);
+		client.write(buffer);
+
+		//closes the connection with the server, client-side
+		client.close();
 
 		return transactionsValidity;
 	}

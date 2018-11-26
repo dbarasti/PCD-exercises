@@ -19,11 +19,11 @@ public class Main {
 								 									.build()
 								 									.checkWhichTransactionValid();		
 
+		//print non-valid transactions
+		report.get(false).forEach(System.out::println);
 
-		//print the valid transactions.
-		report.entrySet().stream()
-						 .filter(Entry::getKey)
-						 .forEach(Entry::getValue);
-		
+		//print valid transactions
+		report.get(true).forEach(System.out::println);
+
 	}	
 }
