@@ -3,7 +3,7 @@ package merkleClient;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+
 
 public class Main {
 
@@ -20,6 +20,7 @@ public class Main {
 								 									.checkWhichTransactionValid();		
 
 		//print non-valid transactions
+		System.out.println("non-valid transactions: ");
 		report.get(false).forEach(System.out::println);
 
 		//print valid transactions

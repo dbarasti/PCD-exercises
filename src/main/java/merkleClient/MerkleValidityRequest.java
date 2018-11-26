@@ -1,17 +1,15 @@
 package merkleClient;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.*;
-
-import static java.rmi.server.LogStream.log;
 import static merkleClient.HashUtil.md5Java;
 
 public class MerkleValidityRequest {
+
+	public static final String END_OF_TRANSMISSION = "close";
 
 	/**
 	 * IP address of the authority
@@ -103,7 +101,7 @@ public class MerkleValidityRequest {
 		}
 
 		//makes server closes his connection with the client with a closing packet
-		byte[] message = new String("close").getBytes();
+		byte[] message = new String(END_OF_TRANSMISSION).getBytes();
 		ByteBuffer buffer = ByteBuffer.wrap(message);
 		client.write(buffer);
 

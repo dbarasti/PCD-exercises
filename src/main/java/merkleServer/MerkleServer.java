@@ -17,7 +17,7 @@ public class MerkleServer {
 	public static final String END_OF_SESSION = "close";
 	
 	@SuppressWarnings("unused")
-	public static void main(String[] args) throws IOException, InterruptedException {
+	public static void main(String[] args) throws IOException{
  
 		// Selector: multiplexor of SelectableChannel objects
 		Selector selector = Selector.open(); // selector is open here
@@ -99,7 +99,11 @@ public class MerkleServer {
 							buffer.clear();
 
 							// wait before sending next message
-							Thread.sleep(100);
+							try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 
 						}
 					}
